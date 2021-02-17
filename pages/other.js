@@ -1,35 +1,18 @@
-import { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import Page from '../components/Page'
-import { addCount } from '../store/count/action'
 import { wrapper } from '../store/store'
-import { serverRenderClock, startClock } from '../store/tick/action'
 
 const Other = (props) => {
-  useEffect(() => {
-    const timer = props.startClock()
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [props])
-
-  return <Page title="Other Page" linkTo="/" />
+    return <Page title="Other Page" linkTo="/" />
 }
+
+// 👇 simulate data fetching to hydrate store
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store }) => {
-    store.dispatch(serverRenderClock(true))
-    store.dispatch(addCount())
-  }
+    ({ store }) => {
+        console.log('ssr init count to 8')
+        // 👇 is there a way to dispatch EP-style ? (eg: actions.initCount(8))
+        store.dispatch({ type: '@action.initCount', payload: 8 })
+    }
 )
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addCount: bindActionCreators(addCount, dispatch),
-    startClock: bindActionCreators(startClock, dispatch),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Other)
+export default Other

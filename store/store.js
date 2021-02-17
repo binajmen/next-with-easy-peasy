@@ -1,37 +1,29 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { createStore, action, actionOn } from 'easy-peasy'
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
-import thunkMiddleware from 'redux-thunk'
-import count from './count/reducer'
-import tick from './tick/reducer'
 
-const bindMiddleware = (middleware) => {
-  if (process.env.NODE_ENV !== 'production') {
-    const { composeWithDevTools } = require('redux-devtools-extension')
-    return composeWithDevTools(applyMiddleware(...middleware))
-  }
-  return applyMiddleware(...middleware)
+const model = {
+    count: 0,
+    addCount: action((state) => {
+        state.count += 1
+    }),
+    initCount: action((state, init) => {
+        state.count = init
+    }),
+    // 👇 catch the HYDRATE actions (__NEXT_REDUX_WRAPPER_HYDRATE__)
+    //
+    // How would you do if you have a nested model ?
+    // e.g.: const model = { counter: { count: 0, addCount: ... }, user: { name, getName: ... }) }
+    //
+    // TODO: client side state reconciliation during hydration
+    // --> https://github.com/kirill-konshin/next-redux-wrapper#state-reconciliation-during-hydration
+    ssrHydrate: actionOn(
+        () => HYDRATE,
+        (state, target) => {
+            state.count = target.payload.count
+        }
+    )
 }
 
-const combinedReducer = combineReducers({
-  count,
-  tick,
-})
-
-const reducer = (state, action) => {
-  if (action.type === HYDRATE) {
-    const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
-    }
-    if (state.count.count) nextState.count.count = state.count.count // preserve count value on client side navigation
-    return nextState
-  } else {
-    return combinedReducer(state, action)
-  }
-}
-
-const initStore = () => {
-  return createStore(reducer, bindMiddleware([thunkMiddleware]))
-}
+const initStore = () => { return createStore(model) }
 
 export const wrapper = createWrapper(initStore)
