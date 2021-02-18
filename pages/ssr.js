@@ -9,8 +9,8 @@ export default function SSR() {
 export function getServerSideProps() {
     const store = initializeStore()
 
-    const data = ['apple', 'pear', 'orange']
-    store.getActions().setItems(data)
+    const data = ['apple', 'pear', 'orange', 'nuts']
+    store.getActions().inventory.setItems(data)
 
     return {
         props: {

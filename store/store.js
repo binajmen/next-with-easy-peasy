@@ -4,18 +4,20 @@ import { createStore, action, persist } from 'easy-peasy'
 let store
 
 const initialState = {
-    count: 0,
-    basket: {},
-    items: []
+    counter: { count: 0 },
+    shop: { basket: {} },
+    inventory: { items: [] }
 }
 
-const model = {
-    ...initialState,
-    // counter
+const counterModel = {
+    ...initialState.counter,
     increment: action((state) => {
         state.count += 1
     }),
-    // basket
+}
+
+const shopModel = {
+    ...initialState.shop,
     addItem: action((state, id) => {
         if (state.basket[id]) {
             state.basket[id]++
@@ -23,17 +25,26 @@ const model = {
             state.basket[id] = 1
         }
     }),
-    // inventory
+}
+
+const inventoryModel = {
+    ...initialState.inventory,
     setItems: action((state, items) => {
         state.items = items
     })
 }
 
+const storeModel = {
+    counter: counterModel,
+    shop: shopModel,
+    inventory: inventoryModel
+}
+
 function initStore(preloadedState = initialState) {
     return createStore(
         persist(
-            model,
-            { allow: ['count', 'basket'] }
+            storeModel,
+            { allow: ['counter', 'shop'] }
         ),
         { initialState: preloadedState }
     )

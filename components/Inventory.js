@@ -1,8 +1,8 @@
 import { useStoreState, useStoreActions } from 'easy-peasy'
 
-function Counter() {
-    const items = useStoreState(state => state.items)
-    const addToBasket = useStoreActions(actions => actions.addItem)
+export default function Inventory() {
+    const items = useStoreState(state => state.inventory.items)
+    const addToBasket = useStoreActions(actions => actions.shop.addItem)
 
     return (
         <div style={{ margin: '2rem' }}>
@@ -18,5 +18,3 @@ function Counter() {
         </div>
     )
 }
-
-export default Counter

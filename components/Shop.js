@@ -1,7 +1,7 @@
 import { useStoreState, useStoreRehydrated } from 'easy-peasy'
 
-function Basket() {
-    const basket = useStoreState(state => state.basket)
+export default function Shop() {
+    const basket = useStoreState(state => state.shop.basket)
     const isRehydrated = useStoreRehydrated()
 
     return (
@@ -15,5 +15,3 @@ function Basket() {
         </div>
     )
 }
-
-export default Basket
