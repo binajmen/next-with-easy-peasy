@@ -1,7 +1,7 @@
 import Page from '../components/Page'
 
-const Index = () => {
-    return <Page title="Index Page" linkTo="/with-init" />
+function Index() {
+    return <Page title="Index Page" linkTo="/ssr" />
 }
 
 export default Index

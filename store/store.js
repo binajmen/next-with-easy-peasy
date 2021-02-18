@@ -1,42 +1,39 @@
-import { createStore, action, actionOn, debug } from 'easy-peasy'
+import { createStore, action, actionOn, persist } from 'easy-peasy'
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
-import { diff } from 'jsondiffpatch'
+// import { diff } from 'jsondiffpatch'
 
-const firstModel = {
+const counterModel = {
     count: 0,
     increment: action((state) => {
         state.count += 1
-    }),
-    initCount: action((state, init) => {
-        state.count = init
-    }),
+    })
 }
 
-const secondModel = {
-    count: 0,
-    increment: action((state) => {
-        state.count += 1
-    }),
-    initCount: action((state, init) => {
-        state.count = init
-    }),
+const shopModel = {
+    basket: {},
+    addItem: action((state, id) => {
+        if (state.basket[id]) {
+            state.basket[id]++
+        } else {
+            state.basket[id] = 1
+        }
+    })
 }
 
-const initialState = {
-    first: { count: 0 },
-    second: { count: 0 }
+const inventoryModel = {
+    items: [],
+    setItems: action((state, items) => state.items = items)
 }
 
 const model = {
-    first: firstModel,
-    second: secondModel,
+    counter: counterModel,
+    shop: persist(shopModel),
+    inventory: inventoryModel,
     // 👇 https://github.com/kirill-konshin/next-redux-wrapper#state-reconciliation-during-hydration
     ssrHydrate: actionOn(
         () => HYDRATE,
         (state, target) => {
-            const stateDiff = diff(state, target.payload)
-            const isFirstCountAlreadyInitiated = stateDiff?.first?.count?.[0] !== initialState.first.count
-            state.first = isFirstCountAlreadyInitiated ? state.first : target.payload.first
+            state.inventory = target.payload.inventory
         }
     )
 }

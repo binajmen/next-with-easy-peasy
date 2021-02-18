@@ -2,7 +2,7 @@ import { wrapper } from '../store/store'
 import { useStore } from 'react-redux'
 import { StoreProvider } from 'easy-peasy'
 
-const WrappedApp = ({ Component, pageProps }) => {
+function WrappedApp({ Component, pageProps }) {
     const store = useStore()
 
     return (
