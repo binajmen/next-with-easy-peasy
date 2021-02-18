@@ -21,3 +21,4 @@ yarn dev
 
 * Generic state reconciliation during hydration using `jsondiffpatch` and the `initialState` ?
 * Use `persist()`
+* to TypeScript
