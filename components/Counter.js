@@ -1,8 +1,8 @@
 import { useStoreState, useStoreActions } from 'easy-peasy'
 
 function Counter() {
-    const count = useStoreState(state => state.counter.count)
-    const increment = useStoreActions(actions => actions.counter.increment)
+    const count = useStoreState(state => state.count)
+    const increment = useStoreActions(actions => actions.increment)
 
     return (
         <div style={{ margin: '2rem' }}>

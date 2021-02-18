@@ -1,21 +1,7 @@
 import { useMemo } from 'react'
-import { createStore, action /*, actionOn, persist */ } from 'easy-peasy'
-// import { HYDRATE, createWrapper } from 'next-redux-wrapper'
-// import { diff } from 'jsondiffpatch'
+import { createStore, action, persist } from 'easy-peasy'
 
-export let store = undefined
-
-// const initialState = {
-//     counter: {
-//         count: 0
-//     },
-//     shop: {
-//         basket: {}
-//     },
-//     inventory: {
-//         items: []
-//     }
-// }
+let store
 
 const initialState = {
     count: 0,
@@ -23,47 +9,37 @@ const initialState = {
     items: []
 }
 
-const counterModel = {
-    count: 0,
+const model = {
+    ...initialState,
+    // counter
     increment: action((state) => {
         state.count += 1
-    })
-}
-
-const shopModel = {
-    basket: {},
+    }),
+    // basket
     addItem: action((state, id) => {
         if (state.basket[id]) {
             state.basket[id]++
         } else {
             state.basket[id] = 1
         }
+    }),
+    // inventory
+    setItems: action((state, items) => {
+        state.items = items
     })
 }
 
-const inventoryModel = {
-    items: [],
-    setItems: action((state, items) => state.items = items)
-}
-
-const model = {
-    counter: counterModel,
-    shop: shopModel,
-    inventory: inventoryModel,
-    // // 👇 https://github.com/kirill-konshin/next-redux-wrapper#state-reconciliation-during-hydration
-    // ssrHydrate: actionOn(
-    //     () => HYDRATE,
-    //     (state, target) => {
-    //         state.inventory = target.payload.inventory
-    //     }
-    // )
-}
-
 function initStore(preloadedState = initialState) {
-    return createStore(model, { preloadedState })
+    return createStore(
+        persist(
+            model,
+            { allow: ['count', 'basket'] }
+        ),
+        { initialState: preloadedState }
+    )
 }
 
-export function initializeStore(preloadedState) {
+export const initializeStore = (preloadedState) => {
     let _store = store ?? initStore(preloadedState)
 
     // After navigating to a page with an initial Redux state, merge that state

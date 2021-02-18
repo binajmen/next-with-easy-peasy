@@ -8,25 +8,13 @@ export default function SSR() {
 
 export function getServerSideProps() {
     const store = initializeStore()
-    // const { dispatch } = reduxStore
 
     const data = ['apple', 'pear', 'orange']
-    store.getActions().inventory.setItems(data)
-    console.log('ssr page', store.getState())
-    // dispatch({
-    //     type: 'TICK',
-    //     light: false,
-    //     lastUpdate: Date.now(),
-    // })
+    store.getActions().setItems(data)
 
-    return { props: { initialStoreState: store.getState() } }
+    return {
+        props: {
+            ssrStoreState: store.getState()
+        }
+    }
 }
-
-
-// // 👇 simulate data fetching from database to hydrate client store
-// export const getServerSideProps = wrapper.getServerSideProps(
-//     ({ store }) => {
-//         const data = ['apple', 'pear', 'orange']
-//         store.getActions().inventory.setItems(data)
-//     }
-// )

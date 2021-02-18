@@ -1,7 +1,7 @@
-import { useStoreRehydrated, useStoreState } from 'easy-peasy'
+import { useStoreState, useStoreRehydrated } from 'easy-peasy'
 
 function Basket() {
-    const basket = useStoreState(state => state.shop.basket)
+    const basket = useStoreState(state => state.basket)
     const isRehydrated = useStoreRehydrated()
 
     return (
