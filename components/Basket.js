@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useStoreRehydrated, useStoreState } from 'easy-peasy'
 
 function Basket() {
