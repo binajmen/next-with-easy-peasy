@@ -1,8 +1,6 @@
-# With Redux Wrapper + Easy-Peasy Example
+# With Redux Wrapper + Easy-Peasy Example for Next.js
 
 Usually splitting your app state into `pages` feels natural but sometimes you'll want to have global state for your app. This is an example on how you can use easy-peasy that also works with the universal rendering approach from Next.js.
-
-This example is widely inspired from the [official redux-wrapper example](https://github.com/vercel/next.js/tree/canary/examples/with-redux-wrapper) maintained by Next.js (February, 2021)
 
 ## How to use
 
@@ -22,3 +20,8 @@ yarn dev
 * Generic state reconciliation during hydration using `jsondiffpatch` and the `initialState` ?
 * Use `persist()`
 * to TypeScript
+
+## Inspired by
+
+* Next.js `with-redux-wrapper` example: https://github.com/vercel/next.js/tree/canary/examples/with-redux-wrapper
+* `next-redux-wrapper` official repo: https://github.com/kirill-konshin/next-redux-wrapper
