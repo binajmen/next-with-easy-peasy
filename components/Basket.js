@@ -2,17 +2,12 @@ import { useStoreState } from 'easy-peasy'
 
 function Basket() {
     const shop = useStoreState(state => state.shop)
+    const basket = useStoreState(state => state.shop.basket)
 
-    // returns:
-    // {
-    //   basket: {
-    //     apple: 5,
-    //     pear: 5,
-    //     orange: 5
-    //   }
-    // }
-    // However, nothing is displayed. When clicking on link, basket is displayed
-    console.log(shop)
+    // When basket is not empty, although the store is populated on first render (non-empty in console),
+    // the Object().map()ing output is empty. Only when you click on the links, the basket is showing
+    console.log('shop:', shop)
+    console.log('shop.basket:', basket)
 
     return (
         <div style={{ margin: '2rem' }}>
