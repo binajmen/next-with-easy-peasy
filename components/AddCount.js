@@ -3,17 +3,19 @@ import { useStoreState, useStoreActions } from 'easy-peasy'
 
 const AddCount = () => {
     const state = useStoreState(state => state)
-    const addCount = useStoreActions(actions => actions.first.addCount)
+    const incFirst = useStoreActions(actions => actions.first.increment)
+    const incSecond = useStoreActions(actions => actions.second.increment)
 
     return (
         <div>
             <h1>
-                first: <span>{state.first.count}</span>
+                First counter: <span>{state.first.count}</span>
             </h1>
             <h1>
-                second: <span>{state.second.count}</span>
+                Second counter: <span>{state.second.count}</span>
             </h1>
-            <button onClick={addCount}>Add count to message</button>
+            <button onClick={incFirst}>Increment first counter</button>
+            <button onClick={incSecond}>Increment second counter</button>
         </div>
     )
 }
