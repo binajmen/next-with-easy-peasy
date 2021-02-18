@@ -1,7 +1,8 @@
-import { createStore, action, actionOn } from 'easy-peasy'
+import { createStore, action, actionOn, debug } from 'easy-peasy'
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
+import { diff } from 'jsondiffpatch'
 
-const model = {
+const firstModel = {
     count: 0,
     addCount: action((state) => {
         state.count += 1
@@ -9,17 +10,39 @@ const model = {
     initCount: action((state, init) => {
         state.count = init
     }),
+}
+
+const secondModel = {
+    count: 0,
+    addCount: action((state) => {
+        state.count += 1
+    }),
+    initCount: action((state, init) => {
+        state.count = init
+    }),
+}
+
+const initValues = {
+    first: { count: 0 },
+    second: { count: 0 }
+}
+
+function reconciliation(state, initValues) {
+
+}
+
+const model = {
+    first: firstModel,
+    second: secondModel,
     // 👇 catch the HYDRATE actions (__NEXT_REDUX_WRAPPER_HYDRATE__)
-    //
-    // How would you do if you have a nested model ?
-    // e.g.: const model = { counter: { count: 0, addCount: ... }, user: { name, getName: ... }) }
-    //
-    // TODO: client side state reconciliation during hydration
-    // --> https://github.com/kirill-konshin/next-redux-wrapper#state-reconciliation-during-hydration
+    // state reconciliation during hydration
+    // https://github.com/kirill-konshin/next-redux-wrapper#state-reconciliation-during-hydration
     ssrHydrate: actionOn(
         () => HYDRATE,
         (state, target) => {
-            state.count = target.payload.count
+            const stateDiff = diff(state, target.payload)
+            const isFirstCountAlreadyInitiated = stateDiff?.first?.count?.[0] !== 0
+            state.first = isFirstCountAlreadyInitiated ? state.first : target.payload.first
         }
     )
 }

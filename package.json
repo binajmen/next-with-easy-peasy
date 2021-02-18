@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "easy-peasy": "4.0.1",
+    "jsondiffpatch": "0.4.1",
     "next": "9.4.1",
     "next-redux-wrapper": "^6.0.1",
     "react": "^16.12.0",
