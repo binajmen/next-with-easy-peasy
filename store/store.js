@@ -27,7 +27,7 @@ const inventoryModel = {
 
 const model = {
     counter: counterModel,
-    shop: persist(shopModel),
+    shop: shopModel,
     inventory: inventoryModel,
     // 👇 https://github.com/kirill-konshin/next-redux-wrapper#state-reconciliation-during-hydration
     ssrHydrate: actionOn(
@@ -38,6 +38,14 @@ const model = {
     )
 }
 
-const initStore = () => { return createStore(model) }
+const initStore = () => createStore(
+    persist(
+        model,
+        {
+            version: 1, // https://easy-peasy.now.sh/docs/api/persist.html#managing-model-updates
+            allow: ['shop'] // https://easy-peasy.now.sh/docs/api/persist.html#configuring-your-store-to-persist
+        }
+    )
+)
 
-export const wrapper = createWrapper(initStore)
+export const wrapper = createWrapper(initStore, { debug: false })

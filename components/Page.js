@@ -11,11 +11,9 @@ function Page({ title, linkTo }) {
             <Counter />
             <Basket />
             <Items />
-            <nav>
-                <Link href={linkTo}>
-                    <a>{linkTo === '/' ? '/index' : linkTo}</a>
-                </Link>
-            </nav>
+            <Link href={linkTo}>
+                <a>{linkTo === '/' ? '/index' : linkTo}</a>
+            </Link>
         </div>
     )
 }
