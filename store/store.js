@@ -22,7 +22,7 @@ const secondModel = {
     }),
 }
 
-const initValues = {
+const initialState = {
     first: { count: 0 },
     second: { count: 0 }
 }
@@ -40,6 +40,10 @@ const model = {
     ssrHydrate: actionOn(
         () => HYDRATE,
         (state, target) => {
+            Object.entries(state).forEach(([key, values]) => {
+                const stateDiff = diff(values, target.payload[key])
+            })
+
             const stateDiff = diff(state, target.payload)
             const isFirstCountAlreadyInitiated = stateDiff?.first?.count?.[0] !== 0
             state.first = isFirstCountAlreadyInitiated ? state.first : target.payload.first
