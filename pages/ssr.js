@@ -9,8 +9,8 @@ function SSR() {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ store }) => {
         console.log('ssr init inventory')
-        const dataFetch = ['apple', 'pear', 'orange']
-        store.getActions().inventory.setItems(dataFetch)
+        const data = ['apple', 'pear', 'orange']
+        store.getActions().inventory.setItems(data)
     }
 )
 

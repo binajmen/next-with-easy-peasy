@@ -43,7 +43,18 @@ const initStore = () => createStore(
         model,
         {
             version: 1, // https://easy-peasy.now.sh/docs/api/persist.html#managing-model-updates
-            allow: ['shop'] // https://easy-peasy.now.sh/docs/api/persist.html#configuring-your-store-to-persist
+            allow: ['shop'], // https://easy-peasy.now.sh/docs/api/persist.html#configuring-your-store-to-persist
+            // transformers: [
+            //     {
+            //         in: (inboundState, key) => {
+            //             console.log(debug(inboundState))
+            //         },
+            //         out: (outboundState, key) => {
+            //             console.log(debug(outboundState))
+            //         },
+            //         whitelist: ['inventory']
+            //     }
+            // ]
         }
     )
 )
