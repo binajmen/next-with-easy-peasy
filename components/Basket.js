@@ -1,7 +1,10 @@
+import * as React from 'react'
 import { useStoreState } from 'easy-peasy'
 
 function Basket() {
     const basket = useStoreState(state => state.shop.basket)
+
+    React.useEffect(() => console.log(basket), [basket])
 
     return (
         <div style={{ margin: '2rem' }}>
