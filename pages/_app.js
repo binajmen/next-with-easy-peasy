@@ -1,9 +1,10 @@
-import { wrapper } from '../store/store'
-import { useStore } from 'react-redux'
 import { StoreProvider } from 'easy-peasy'
+import { useStore } from '../store/store'
 
-function WrappedApp({ Component, pageProps }) {
-    const store = useStore()
+export default function WrappedApp({ Component, pageProps }) {
+    const store = useStore(pageProps.initialStoreState)
+    console.log('_app store', store.getState())
+    console.log('_app props', pageProps)
 
     return (
         <StoreProvider store={store}>
@@ -11,5 +12,3 @@ function WrappedApp({ Component, pageProps }) {
         </StoreProvider>
     )
 }
-
-export default wrapper.withRedux(WrappedApp)

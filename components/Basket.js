@@ -3,7 +3,6 @@ import { useStoreRehydrated, useStoreState } from 'easy-peasy'
 function Basket() {
     const basket = useStoreState(state => state.shop.basket)
     const isRehydrated = useStoreRehydrated()
-    console.log('isRehydrated?', isRehydrated)
 
     return (
         <div style={{ margin: '2rem' }}>
