@@ -4,7 +4,7 @@ import { diff } from 'jsondiffpatch'
 
 const firstModel = {
     count: 0,
-    addCount: action((state) => {
+    increment: action((state) => {
         state.count += 1
     }),
     initCount: action((state, init) => {
@@ -14,7 +14,7 @@ const firstModel = {
 
 const secondModel = {
     count: 0,
-    addCount: action((state) => {
+    increment: action((state) => {
         state.count += 1
     }),
     initCount: action((state, init) => {
@@ -25,10 +25,6 @@ const secondModel = {
 const initialState = {
     first: { count: 0 },
     second: { count: 0 }
-}
-
-function reconciliation(state, initValues) {
-
 }
 
 const model = {
