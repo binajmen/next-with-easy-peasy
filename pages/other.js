@@ -10,8 +10,7 @@ const Other = (props) => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ store }) => {
         console.log('ssr init count to 8')
-        // 👇 is there a way to dispatch EP-style ? (eg: actions.initCount(8))
-        store.dispatch({ type: '@action.first.initCount', payload: 8 })
+        store.getActions().first.initCount(8)
     }
 )
 
