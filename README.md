@@ -17,11 +17,9 @@ yarn dev
 
 ## TODO's
 
-* Generic state reconciliation during hydration using `jsondiffpatch` and the `initialState` ?
-* Use `persist()`
-* to TypeScript
+- [x] Use `persist()`
+- [ ] Use TypeScript
 
 ## Inspired by
 
-* Next.js `with-redux-wrapper` example: https://github.com/vercel/next.js/tree/canary/examples/with-redux-wrapper
-* `next-redux-wrapper` official repo: https://github.com/kirill-konshin/next-redux-wrapper
+* Next.js `with-redux` official example: https://github.com/vercel/next.js/tree/canary/examples/with-redux
