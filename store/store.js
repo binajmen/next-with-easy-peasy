@@ -44,7 +44,7 @@ function initStore(preloadedState = initialState) {
     return createStore(
         persist(
             storeModel,
-            { allow: ['counter', 'shop'] }
+            { allow: ['shop'] }
         ),
         { initialState: preloadedState }
     )
