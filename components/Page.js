@@ -11,8 +11,16 @@ function Page({ title, linkTo }) {
             <Counter />
             <Shop />
             <Inventory />
-            <Link href={linkTo}>
-                <a>{linkTo === '/' ? '/index' : linkTo}</a>
+            <Link href="/">
+                <a>/index</a>
+            </Link>
+            {" – "}
+            <Link href="/ssr">
+                <a>/ssr</a>
+            </Link>
+            {" – "}
+            <Link href="/ssr">
+                <a>/ssr (again)</a>
             </Link>
         </div>
     )
