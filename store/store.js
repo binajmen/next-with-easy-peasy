@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { createStore, action, persist } from 'easy-peasy'
+import { createStore, action, persist, computed } from 'easy-peasy'
 
 let store
 
@@ -18,6 +18,7 @@ const counterModel = {
 
 const shopModel = {
     ...initialState.shop,
+    size: computed(state => Object.values(state.basket).reduce((a, c) => a + c, 0)),
     addItem: action((state, id) => {
         if (state.basket[id]) {
             state.basket[id]++
